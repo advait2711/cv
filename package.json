@@ -23,7 +23,7 @@
     "multer": "^2.0.2",
     "node-fetch": "^3.3.2",
     "pdf-lib": "^1.17.1",
-    "pdf-parse": "github:advait2711/pdf-parse",
+    "pdf-parse": "^1.1.1",
     "pdfkit": "^0.17.1",
     "sharp": "^0.34.3"
   }
