@@ -1,6 +1,6 @@
 import fs from 'fs';
 import mammoth from 'mammoth';
-import pdfjsLib from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist';
 import { formatCvWithGemini } from '../services/geminiService.js';
 
 export const getUploadPage = (req, res) => {
