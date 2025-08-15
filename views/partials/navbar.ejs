@@ -1,0 +1,22 @@
+<header class="bg-white shadow-md fixed w-full top-0 left-0 z-10">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex-shrink-0">
+                <a href="/" class="text-2xl font-bold text-blue-600">CV Builder</a>
+            </div>
+            <div class="flex items-center">
+                <% if (typeof user !== 'undefined' && user) { %>
+                    <span class="text-gray-700 mr-4 hidden sm:block">Hello, <%= user.email %></span>
+                    <a href="/logout" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Logout
+                    </a>
+                <% } else { %>
+                    <a href="/login" class="text-gray-700 hover:text-blue-600 font-medium mr-4">Login</a>
+                    <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Register
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+</header>
