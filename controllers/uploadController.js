@@ -1,8 +1,7 @@
 import fs from 'fs';
-import pdf from 'pdf-parse';
 import mammoth from 'mammoth';
+import pdfjsLib from 'pdfjs-dist/legacy/build/pdf.js';
 import { formatCvWithGemini } from '../services/geminiService.js';
-
 
 export const getUploadPage = (req, res) => {
     res.render('upload', { 
@@ -12,6 +11,20 @@ export const getUploadPage = (req, res) => {
     });
 };
 
+// Safe PDF text extraction using pdfjs-dist
+const extractTextFromPdf = async (filePath) => {
+    const data = new Uint8Array(fs.readFileSync(filePath));
+    const pdf = await pdfjsLib.getDocument({ data }).promise;
+    let text = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(' ') + '\n';
+    }
+    return text;
+};
+
+// Handle file upload and formatting
 export const handleUploadAndFormat = async (req, res) => {
     try {
         if (!req.file) {
@@ -23,9 +36,7 @@ export const handleUploadAndFormat = async (req, res) => {
 
         // Extract text based on file type
         if (req.file.mimetype === 'application/pdf') {
-            const dataBuffer = fs.readFileSync(filePath);
-            const data = await pdf(dataBuffer);
-            rawText = data.text;
+            rawText = await extractTextFromPdf(filePath);
         } else if (req.file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
             const result = await mammoth.extractRawText({ path: filePath });
             rawText = result.value;

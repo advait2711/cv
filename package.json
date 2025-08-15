@@ -24,6 +24,7 @@
     "node-fetch": "^3.3.2",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "https://github.com/advait2711/pdf-parse",
+    "pdfjs-dist": "^4.8.69",
     "pdfkit": "^0.17.1",
     "sharp": "^0.34.3"
   }
